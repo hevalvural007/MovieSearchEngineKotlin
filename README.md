@@ -5,8 +5,6 @@ Jetpack Compose ve Kotlin kullanarak geliştirilmiş, film arama motoru uygulama
 
 Film Arama: Film adını girerek arama yapabilirsiniz.
 
-Film Detayları: Arama sonuçlarından bir filme tıklayarak detaylarına ulaşabilirsiniz.
-
 Kullanıcı Dostu Arayüz: Modern ve kullanıcı dostu bir tasarım.
 
 🛠️ Kullanılan Teknolojiler
@@ -25,8 +23,6 @@ A movie search engine application developed using Jetpack Compose and Kotlin.
 🚀 Features
 
 Movie Search: Search for movies by entering their names.
-
-Movie Details: Click on a search result to view detailed information.
 
 User-Friendly Interface: A modern and intuitive design.
 
