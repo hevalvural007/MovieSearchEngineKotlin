@@ -27,7 +27,8 @@ fun ListScreen(
     movies: List<Movie>,
     isLoading: Boolean,
     error: String?,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onMovieClick: (Movie) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().background(Color(0XFF222831))) {
         when {
@@ -101,7 +102,7 @@ fun ListScreen(
                     
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
                         items(movies) { movie ->
-                            MovieRow(movie)
+                            MovieRow(movie = movie, onMovieClick = onMovieClick)
                             Box(modifier = Modifier.fillMaxWidth().height(5.dp).background(Color(0xFFF4CE14)))
                         }
                     }

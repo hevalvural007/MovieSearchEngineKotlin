@@ -1,6 +1,7 @@
 package com.hevalvural.moviesearchengine
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,13 +25,14 @@ import coil.compose.AsyncImage
 import com.hevalvural.moviesearchengine.models.Movie
 
 @Composable
-fun MovieRow(movie: Movie) {
+fun MovieRow(movie: Movie, onMovieClick: (Movie) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color(0XFF222831))
             .height(125.dp)
             .padding(horizontal = 8.dp, vertical = 4.dp)
+            .clickable { onMovieClick(movie) }
     ) {
         AsyncImage(
             model = movie.poster,

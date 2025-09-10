@@ -1,3 +1,4 @@
+
 package com.hevalvural.moviesearchengine
 
 import android.os.Bundle
@@ -16,8 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hevalvural.moviesearchengine.screens.ListScreen
 import com.hevalvural.moviesearchengine.screens.MainScreen
+import com.hevalvural.moviesearchengine.screens.MovieDetailsScreen
 import com.hevalvural.moviesearchengine.ui.theme.MovieSearchEngineTheme
 import com.hevalvural.moviesearchengine.viewmodels.MovieViewModel
+import com.hevalvural.moviesearchengine.viewmodels.Screen
 
 class MainActivity : ComponentActivity() {
 
@@ -28,6 +31,7 @@ class MainActivity : ComponentActivity() {
             MovieSearchEngineTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)){
+
                         MovieApp()
                     }
                 }
@@ -40,21 +44,37 @@ class MainActivity : ComponentActivity() {
 fun MovieApp(viewModel: MovieViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     
-    if (uiState.movies.isEmpty() && !uiState.isLoading) {
-        MainScreen(
-            searchMovie = { query ->
-                viewModel.searchMovies(query)
-            }
-        )
-    } else {
-        ListScreen(
-            movies = uiState.movies,
-            isLoading = uiState.isLoading,
-            error = uiState.error,
-            onBackPressed = {
-                viewModel.clearMovies()
-            }
-        )
+    when (uiState.currentScreen) {
+        Screen.SEARCH -> {
+            MainScreen(
+                searchMovie = { query ->
+                    viewModel.searchMovies(query)
+                }
+            )
+        }
+        Screen.LIST -> {
+            ListScreen(
+                movies = uiState.movies,
+                isLoading = uiState.isLoading,
+                error = uiState.error,
+                onBackPressed = {
+                    viewModel.goBackToSearch()
+                },
+                onMovieClick = { movie ->
+                    viewModel.getMovieDetails(movie.imdbID)
+                }
+            )
+        }
+        Screen.DETAILS -> {
+            MovieDetailsScreen(
+                movieDetails = uiState.movieDetails,
+                isLoading = uiState.isLoadingDetails,
+                error = uiState.error,
+                onBackPressed = {
+                    viewModel.goBackToList()
+                }
+            )
+        }
     }
 }
 
